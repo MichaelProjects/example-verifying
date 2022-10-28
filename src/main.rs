@@ -13,8 +13,10 @@ use structopt::StructOpt;
 
 
 fn main() {
+    env_logger::init();
     let cli = Examples::from_args();
     let mut current_path = env::current_dir().expect("Could not get current path");
+    
     let dir = cli.dir.clone();
     if !dir.contains(current_path.to_str().unwrap()) {
         current_path.push(dir);
@@ -35,6 +37,7 @@ fn main() {
             v.push(j);
         }   
         v.push(file);
+        v.remove(0);
 
         let y = v.first().unwrap();
         println!("Command: {:?}, args: {:?}", y, v);
